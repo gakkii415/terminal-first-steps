@@ -8,21 +8,23 @@
   <style>
     :root {
       color-scheme: light;
-      --paper: #f2f5f3;
-      --panel: #fbfcfa;
-      --ink: #17262d;
-      --muted: #65747a;
-      --line: #cdd7d5;
-      --accent: #d85c36;
-      --accent-soft: #f8e2d9;
+      --paper: #eaf0ef;
+      --panel: #f8faf7;
+      --ink: #152a32;
+      --muted: #60747a;
+      --line: #c4d1cf;
+      --accent: #db4f24;
+      --accent-soft: #f8ddd2;
       --success: #24705d;
       --success-soft: #dceee7;
       --danger: #a33b32;
       --danger-soft: #f8dfdc;
-      --terminal: #11232b;
-      --terminal-soft: #1a333d;
+      --terminal: #10272f;
+      --terminal-soft: #173640;
       --terminal-text: #e7f1ec;
       --terminal-muted: #9fb6ae;
+      --route: #64c2a5;
+      --highlight: #f0cc5d;
       --focus: #0b6ea8;
       --shadow: 0 18px 50px rgba(23, 38, 45, 0.12);
       --radius: 18px;
@@ -58,7 +60,7 @@
     }
 
     .app {
-      width: min(1180px, calc(100% - 40px));
+      width: min(1280px, calc(100% - 40px));
       margin: 0 auto;
       padding: 28px 0 36px;
     }
@@ -111,6 +113,7 @@
     }
 
     .reset-button,
+    .guide-button,
     .text-button {
       min-height: 42px;
       border: 1px solid var(--line);
@@ -122,10 +125,28 @@
     }
 
     .reset-button:hover,
+    .guide-button:hover,
     .text-button:hover {
       border-color: var(--ink);
       background: var(--panel);
       transform: translateY(-1px);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .guide-button {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: white;
+    }
+
+    .guide-button:hover {
+      background: #27414a;
+      color: white;
     }
 
     .progress-region {
@@ -170,7 +191,7 @@
     .workspace {
       display: grid;
       grid-template-columns: minmax(300px, 0.78fr) minmax(470px, 1.22fr);
-      min-height: 620px;
+      min-height: min(690px, calc(100vh - 176px));
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -263,6 +284,52 @@
       font-size: 13px;
     }
 
+    .hint-copy { margin: 0; }
+
+    .command-anatomy {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-end;
+      margin-top: 14px;
+      padding-top: 13px;
+      border-top: 1px dashed #b5c4c1;
+    }
+
+    .anatomy-part {
+      display: grid;
+      gap: 3px;
+    }
+
+    .anatomy-label {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .anatomy-token {
+      border-radius: 5px;
+      background: var(--ink);
+      padding: 4px 8px;
+      color: white;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .anatomy-part.argument .anatomy-token {
+      background: var(--highlight);
+      color: #3c3214;
+    }
+
+    .anatomy-plus {
+      padding-bottom: 4px;
+      color: var(--muted);
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 11px;
+    }
+
     .lesson-note {
       margin-top: auto;
       padding-top: 32px;
@@ -275,7 +342,7 @@
     .terminal-panel {
       display: grid;
       min-width: 0;
-      grid-template-rows: auto minmax(330px, 1fr) auto auto;
+      grid-template-rows: auto auto minmax(300px, 1fr) auto auto;
       background: var(--terminal);
       color: var(--terminal-text);
     }
@@ -316,9 +383,77 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #6fc2a5;
+      background: var(--route);
       content: "";
       box-shadow: 0 0 0 4px rgba(111, 194, 165, 0.12);
+    }
+
+    .path-region {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+      min-height: 72px;
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(231, 241, 236, 0.12);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .path-label {
+      color: var(--terminal-muted);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .path-rail {
+      display: flex;
+      min-width: 0;
+      overflow-x: auto;
+      align-items: center;
+      padding: 5px 2px;
+      scrollbar-width: none;
+    }
+
+    .path-rail::-webkit-scrollbar { display: none; }
+
+    .path-stop {
+      position: relative;
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 7px;
+      color: var(--terminal-muted);
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 11px;
+    }
+
+    .path-stop:not(:last-child)::after {
+      width: 24px;
+      height: 1px;
+      margin: 0 7px;
+      background: rgba(100, 194, 165, 0.5);
+      content: "";
+    }
+
+    .path-dot {
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--route);
+      border-radius: 50%;
+      background: var(--terminal);
+    }
+
+    .path-stop.current {
+      color: var(--terminal-text);
+      font-weight: 700;
+    }
+
+    .path-stop.current .path-dot {
+      background: var(--highlight);
+      border-color: var(--highlight);
+      box-shadow: 0 0 0 4px rgba(240, 204, 93, 0.12);
     }
 
     .terminal-history {
@@ -474,6 +609,34 @@
       color: #bdd0ca;
     }
 
+    .capability-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      max-width: 720px;
+      margin: 28px 0 0;
+      padding: 1px;
+      background: rgba(231, 241, 236, 0.14);
+      list-style: none;
+    }
+
+    .capability-list li {
+      min-height: 82px;
+      background: var(--terminal);
+      padding: 15px 17px;
+    }
+
+    .capability-list strong {
+      display: block;
+      color: var(--terminal-text);
+      font-size: 14px;
+    }
+
+    .capability-list span {
+      color: var(--terminal-muted);
+      font-size: 12px;
+    }
+
     .learned-list {
       display: flex;
       flex-wrap: wrap;
@@ -549,6 +712,95 @@
       font-weight: 700;
     }
 
+    .guide-dialog {
+      width: min(720px, calc(100% - 32px));
+      max-height: min(760px, calc(100vh - 36px));
+    }
+
+    .guide-dialog .dialog-body {
+      max-height: inherit;
+      overflow: auto;
+      padding: 30px;
+    }
+
+    .guide-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .guide-eyebrow {
+      margin: 0 0 4px;
+      color: var(--accent);
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .guide-close {
+      display: grid;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .command-guide-list {
+      display: grid;
+      margin: 26px 0 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .command-guide-item {
+      display: grid;
+      grid-template-columns: minmax(100px, 0.35fr) minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      min-height: 84px;
+      border-bottom: 1px solid var(--line);
+      padding: 13px 4px;
+    }
+
+    .command-guide-item code {
+      color: var(--ink);
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .command-guide-copy strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .command-guide-copy span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .command-state {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .command-guide-item.learned .command-state {
+      border-color: #8fc3b3;
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
     [hidden] { display: none !important; }
 
     .sr-only {
@@ -600,12 +852,26 @@
         font-size: 12px;
       }
 
+      .topbar-actions { gap: 6px; }
+
+      .guide-button,
+      .reset-button {
+        padding-right: 11px;
+        padding-left: 11px;
+      }
+
       .lesson-panel { padding: 28px 24px; }
       .lesson-title { font-size: 30px; }
       .mission { margin-top: 24px; }
 
       .terminal-header,
-      .terminal-history { padding-right: 18px; padding-left: 18px; }
+      .terminal-history,
+      .path-region { padding-right: 18px; padding-left: 18px; }
+
+      .path-region {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
 
       .terminal-form,
       .feedback { margin-right: 14px; margin-left: 14px; }
@@ -618,6 +884,20 @@
 
       .prompt { padding-top: 2px; font-size: 12px; }
       .command-input { font-size: 16px; }
+
+      .capability-list { grid-template-columns: 1fr; }
+
+      .guide-dialog .dialog-body { padding: 23px 20px; }
+
+      .command-guide-item {
+        grid-template-columns: 82px minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .command-state {
+        grid-column: 2;
+        justify-self: start;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -638,11 +918,14 @@
           <p class="brand-subtitle">壊れない場所から、はじめよう。</p>
         </div>
       </div>
-      <button class="reset-button" id="resetButton" type="button">最初からやり直す</button>
+      <div class="topbar-actions">
+        <button class="guide-button" id="guideButton" type="button">コマンド手帳</button>
+        <button class="reset-button" id="resetButton" type="button">最初からやり直す</button>
+      </div>
     </header>
 
     <section class="progress-region" aria-label="レッスン進捗">
-      <span class="progress-label">Course progress</span>
+      <span class="progress-label">First route / 基礎コース</span>
       <span class="progress-count" id="progressCount">0 / 8</span>
       <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="progressTrack">
         <div class="progress-bar" id="progressBar"></div>
@@ -662,7 +945,7 @@
 
         <div class="hint-wrap">
           <button class="hint-button" id="hintButton" type="button" aria-expanded="false" aria-controls="hintText">ヒントを見る</button>
-          <p class="hint-text" id="hintText" hidden></p>
+          <div class="hint-text" id="hintText" hidden></div>
         </div>
 
         <p class="lesson-note"><strong>Enter</strong> で実行。ここでの操作は練習用で、あなたのPCには触れません。</p>
@@ -673,6 +956,11 @@
           <p class="terminal-title">practice — safe shell</p>
           <span class="terminal-status">練習環境</span>
         </header>
+
+        <div class="path-region">
+          <span class="path-label">Current path</span>
+          <div class="path-rail" id="pathRail" aria-label="現在地"></div>
+        </div>
 
         <div class="terminal-history" id="terminalHistory" aria-live="polite" aria-relevant="additions text">
           <p class="welcome-line">Terminal First Stepsへようこそ。最初のコマンドを入力してください。</p>
@@ -697,7 +985,13 @@
         <p class="lesson-kicker">Course complete</p>
         <h2 class="complete-title" id="completeTitle">最初の8歩を、完走しました。</h2>
         <p class="complete-copy">現在地を知り、中身を見て、移動し、フォルダとファイルを作れました。コマンドラインは、短い言葉で場所とものを扱う道具です。</p>
-        <ul class="learned-list" aria-label="学んだコマンド">
+        <ul class="capability-list">
+          <li><strong>場所を知る</strong><span>pwdで現在地をパスとして確認</span></li>
+          <li><strong>中身を確かめる</strong><span>lsとcatでフォルダとファイルを確認</span></li>
+          <li><strong>場所を移る</strong><span>cdで作業するフォルダを変更</span></li>
+          <li><strong>新しく作る</strong><span>mkdirとtouchでフォルダとファイルを作成</span></li>
+        </ul>
+        <ul class="learned-list" aria-label="このコースで使えるコマンド">
           <li><code>pwd</code></li>
           <li><code>ls</code></li>
           <li><code>cat</code></li>
@@ -719,6 +1013,20 @@
         <button class="text-button" id="cancelReset" type="button">キャンセル</button>
         <button class="dialog-confirm" id="confirmReset" type="button">リセットする</button>
       </div>
+    </div>
+  </dialog>
+
+  <dialog class="guide-dialog" id="guideDialog" aria-labelledby="guideDialogTitle">
+    <div class="dialog-body">
+      <div class="guide-header">
+        <div>
+          <p class="guide-eyebrow">Pocket command guide</p>
+          <h2 class="dialog-title" id="guideDialogTitle">コマンド手帳</h2>
+          <p class="dialog-copy">このコースで使える7つのコマンドです。迷ったら、意味と入力の形をここで確認できます。</p>
+        </div>
+        <button class="guide-close" id="closeGuide" type="button" aria-label="コマンド手帳を閉じる">×</button>
+      </div>
+      <div class="command-guide-list" id="commandGuideList"></div>
     </div>
   </dialog>
 
@@ -760,50 +1068,83 @@
           title: "まず、現在地を知る。",
           description: "ターミナルにも「今いる場所」があります。pwdは、その場所をパスという住所で表示するコマンドです。",
           mission: "現在いる場所を表示してください。",
-          hint: "print working directoryの頭文字です。`pwd` と入力します。"
+          hint: "print working directoryの頭文字です。pwdと入力します。",
+          example: [{ token: "pwd", label: "コマンド", type: "command" }]
         },
         {
           title: "ここにあるものを見る。",
           description: "lsは、今いるフォルダに入っているファイルやフォルダを一覧にします。まず周りを確認してから動くのが基本です。",
           mission: "現在のフォルダの中身を一覧表示してください。",
-          hint: "listを短くしたコマンドです。`ls` と入力します。"
+          hint: "listを短くしたコマンドです。lsと入力します。",
+          example: [{ token: "ls", label: "コマンド", type: "command" }]
         },
         {
           title: "ファイルの中身を読む。",
           description: "catはテキストファイルの内容をその場に表示します。コマンドの後ろに半角スペースを入れ、対象の名前を続けます。",
           mission: "welcome.txtの内容を表示してください。",
-          hint: "`cat welcome.txt` と入力します。catとファイル名の間は半角スペースです。"
+          hint: "cat welcome.txtと入力します。catとファイル名の間は半角スペースです。",
+          example: [
+            { token: "cat", label: "コマンド", type: "command" },
+            { token: "welcome.txt", label: "引数", type: "argument" }
+          ]
         },
         {
           title: "フォルダを移動する。",
           description: "cdは現在地を別のフォルダへ移します。移動先の名前を引数として指定します。",
           mission: "projectsフォルダへ移動してください。",
-          hint: "change directoryを短くしたコマンドです。`cd projects` と入力します。"
+          hint: "change directoryを短くしたコマンドです。cd projectsと入力します。",
+          example: [
+            { token: "cd", label: "コマンド", type: "command" },
+            { token: "projects", label: "引数", type: "argument" }
+          ]
         },
         {
           title: "新しい場所を作る。",
           description: "mkdirは新しいフォルダを作ります。練習用の作業場所をここに用意しましょう。",
           mission: "practiceというフォルダを作ってください。",
-          hint: "make directoryを短くしたコマンドです。`mkdir practice` と入力します。"
+          hint: "make directoryを短くしたコマンドです。mkdir practiceと入力します。",
+          example: [
+            { token: "mkdir", label: "コマンド", type: "command" },
+            { token: "practice", label: "引数", type: "argument" }
+          ]
         },
         {
           title: "作った場所へ入る。",
           description: "さきほど作ったpracticeフォルダへ移動します。プロンプトの場所表示が変わることにも注目してください。",
           mission: "practiceフォルダへ移動してください。",
-          hint: "もう一度cdを使います。`cd practice` と入力します。"
+          hint: "もう一度cdを使います。cd practiceと入力します。",
+          example: [
+            { token: "cd", label: "コマンド", type: "command" },
+            { token: "practice", label: "引数", type: "argument" }
+          ]
         },
         {
           title: "空のファイルを作る。",
           description: "touchは、指定した名前の空ファイルを作れます。ここでは学習メモ用のファイルを用意します。",
           mission: "memo.txtというファイルを作ってください。",
-          hint: "`touch memo.txt` と入力します。"
+          hint: "touch memo.txtと入力します。",
+          example: [
+            { token: "touch", label: "コマンド", type: "command" },
+            { token: "memo.txt", label: "引数", type: "argument" }
+          ]
         },
         {
           title: "作った結果を確かめる。",
           description: "操作のあとは結果を確認します。最後にフォルダの中身を一覧表示し、memo.txtがあることを確かめましょう。",
           mission: "現在のフォルダの中身を一覧表示してください。",
-          hint: "Step 2で使った`ls`をもう一度使います。"
+          hint: "Step 2で使ったlsをもう一度使います。",
+          example: [{ token: "ls", label: "コマンド", type: "command" }]
         }
+      ];
+
+      const COMMAND_GUIDE = [
+        { name: "pwd", pattern: "pwd", meaning: "現在いる場所をパスで表示する", learnedAt: 1 },
+        { name: "ls", pattern: "ls", meaning: "現在のフォルダの中身を一覧にする", learnedAt: 2 },
+        { name: "cat", pattern: "cat ファイル名", meaning: "テキストファイルの内容を表示する", learnedAt: 3 },
+        { name: "cd", pattern: "cd フォルダ名", meaning: "指定したフォルダへ移動する", learnedAt: 4 },
+        { name: "mkdir", pattern: "mkdir 新しい名前", meaning: "新しいフォルダを作る", learnedAt: 5 },
+        { name: "touch", pattern: "touch 新しい名前", meaning: "新しい空ファイルを作る", learnedAt: 7 },
+        { name: "clear", pattern: "clear", meaning: "表示履歴だけを消して画面を整理する", learnedAt: 0, utility: true }
       ];
 
       const elements = {
@@ -819,6 +1160,7 @@
         progressBar: document.querySelector("#progressBar"),
         terminalPanel: document.querySelector("#terminalPanel"),
         terminalHistory: document.querySelector("#terminalHistory"),
+        pathRail: document.querySelector("#pathRail"),
         historyEntries: document.querySelector("#historyEntries"),
         terminalForm: document.querySelector("#terminalForm"),
         commandInput: document.querySelector("#commandInput"),
@@ -826,10 +1168,14 @@
         feedback: document.querySelector("#feedback"),
         completePanel: document.querySelector("#completePanel"),
         resetButton: document.querySelector("#resetButton"),
+        guideButton: document.querySelector("#guideButton"),
         restartButton: document.querySelector("#restartButton"),
         resetDialog: document.querySelector("#resetDialog"),
         cancelReset: document.querySelector("#cancelReset"),
-        confirmReset: document.querySelector("#confirmReset")
+        confirmReset: document.querySelector("#confirmReset"),
+        guideDialog: document.querySelector("#guideDialog"),
+        closeGuide: document.querySelector("#closeGuide"),
+        commandGuideList: document.querySelector("#commandGuideList")
       };
 
       function clone(value) {
@@ -1156,13 +1502,97 @@
         elements.feedback.append(title, body);
       }
 
+      function renderHint(lesson) {
+        elements.hintText.replaceChildren();
+        const copy = document.createElement("p");
+        copy.className = "hint-copy";
+        copy.textContent = lesson.hint;
+        elements.hintText.append(copy);
+
+        const anatomy = document.createElement("div");
+        anatomy.className = "command-anatomy";
+        anatomy.setAttribute("aria-label", "入力のしくみ");
+
+        lesson.example.forEach((part, index) => {
+          if (index > 0) {
+            const plus = document.createElement("span");
+            plus.className = "anatomy-plus";
+            plus.textContent = "+ 半角スペース +";
+            anatomy.append(plus);
+          }
+          const wrapper = document.createElement("span");
+          wrapper.className = `anatomy-part ${part.type}`;
+          const label = document.createElement("span");
+          label.className = "anatomy-label";
+          label.textContent = part.label;
+          const token = document.createElement("span");
+          token.className = "anatomy-token";
+          token.textContent = part.token;
+          wrapper.append(label, token);
+          anatomy.append(wrapper);
+        });
+        elements.hintText.append(anatomy);
+      }
+
+      function renderPathRail() {
+        elements.pathRail.replaceChildren();
+        const segments = ["/", ...state.cwd];
+        const fragment = document.createDocumentFragment();
+        segments.forEach((segment, index) => {
+          const stop = document.createElement("span");
+          stop.className = `path-stop${index === segments.length - 1 ? " current" : ""}`;
+          const dot = document.createElement("span");
+          dot.className = "path-dot";
+          dot.setAttribute("aria-hidden", "true");
+          const name = document.createElement("span");
+          name.textContent = segment;
+          stop.append(dot, name);
+          fragment.append(stop);
+        });
+        elements.pathRail.append(fragment);
+        elements.pathRail.setAttribute("aria-label", `現在地 ${pathText()}`);
+      }
+
+      function renderCommandGuide() {
+        elements.commandGuideList.replaceChildren();
+        const completed = state.complete ? LESSONS.length : state.stepIndex;
+        const fragment = document.createDocumentFragment();
+
+        COMMAND_GUIDE.forEach(command => {
+          const learned = command.utility || completed >= command.learnedAt;
+          const item = document.createElement("div");
+          item.className = `command-guide-item${learned ? " learned" : ""}`;
+
+          const name = document.createElement("code");
+          name.textContent = command.name;
+          const copy = document.createElement("div");
+          copy.className = "command-guide-copy";
+          const pattern = document.createElement("strong");
+          pattern.textContent = command.pattern;
+          const meaning = document.createElement("span");
+          meaning.textContent = command.meaning;
+          copy.append(pattern, meaning);
+
+          const status = document.createElement("span");
+          status.className = "command-state";
+          status.textContent = command.utility ? "便利機能" : learned ? "学習済み" : "これから";
+          item.append(name, copy, status);
+          fragment.append(item);
+        });
+        elements.commandGuideList.append(fragment);
+
+        const learnedCount = COMMAND_GUIDE.filter(command => !command.utility && completed >= command.learnedAt).length;
+        elements.guideButton.textContent = "コマンド手帳";
+        elements.guideButton.setAttribute("aria-label", `コマンド手帳を開く。6個中${learnedCount}個を学習済み`);
+      }
+
       function renderLesson() {
         const lesson = LESSONS[state.stepIndex];
         elements.lessonKicker.textContent = `Mission ${String(state.stepIndex + 1).padStart(2, "0")}`;
         elements.lessonTitle.textContent = lesson.title;
         elements.lessonDescription.textContent = lesson.description;
         elements.missionText.textContent = lesson.mission;
-        elements.hintText.textContent = lesson.hint;
+        renderHint(lesson);
         elements.hintText.hidden = !state.hintVisible;
         elements.hintButton.textContent = state.hintVisible ? "ヒントを隠す" : "ヒントを見る";
         elements.hintButton.setAttribute("aria-expanded", String(state.hintVisible));
@@ -1185,8 +1615,10 @@
           renderLesson();
           renderHistory();
           renderFeedback();
+          renderPathRail();
           elements.prompt.textContent = promptText();
         }
+        renderCommandGuide();
         renderProgress();
         saveState();
 
@@ -1236,7 +1668,11 @@
 
         elements.commandInput.value = "";
         render();
-        if (!state.complete) elements.commandInput.focus();
+        if (state.complete) {
+          requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+        } else {
+          elements.commandInput.focus();
+        }
       }
 
       function openResetDialog() {
@@ -1248,12 +1684,25 @@
         }
       }
 
+      function openGuideDialog() {
+        if (typeof elements.guideDialog.showModal === "function") {
+          elements.guideDialog.showModal();
+          elements.closeGuide.focus();
+        }
+      }
+
       function resetCourse() {
         state = createInitialState();
         localStorage.removeItem(STORAGE_KEY);
         if (elements.resetDialog.open) elements.resetDialog.close();
         render();
-        elements.commandInput.focus();
+        focusCommandInput();
+      }
+
+      function focusCommandInput() {
+        if (window.matchMedia("(min-width: 821px)").matches) {
+          elements.commandInput.focus({ preventScroll: true });
+        }
       }
 
       elements.terminalForm.addEventListener("submit", handleSubmit);
@@ -1268,18 +1717,23 @@
         render();
       });
       elements.resetButton.addEventListener("click", openResetDialog);
+      elements.guideButton.addEventListener("click", openGuideDialog);
       elements.restartButton.addEventListener("click", openResetDialog);
       elements.cancelReset.addEventListener("click", () => elements.resetDialog.close());
       elements.confirmReset.addEventListener("click", resetCourse);
+      elements.closeGuide.addEventListener("click", () => elements.guideDialog.close());
       elements.resetDialog.addEventListener("click", event => {
         if (event.target === elements.resetDialog) elements.resetDialog.close();
+      });
+      elements.guideDialog.addEventListener("click", event => {
+        if (event.target === elements.guideDialog) elements.guideDialog.close();
       });
       elements.terminalPanel.addEventListener("click", event => {
         if (!event.target.closest("button") && !state.complete) elements.commandInput.focus();
       });
 
       render();
-      if (!state.complete) elements.commandInput.focus();
+      if (!state.complete) focusCommandInput();
     })();
   </script>
 </body>
