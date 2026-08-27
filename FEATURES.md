@@ -36,11 +36,11 @@
 
 ## Project Feature Maturity
 
-- Product / users / core outcome:
-- Current maturity:
-- Core feature set / completion criteria:
-- Next target state:
-- Expansion Set:
-- Deferred or rejected items / reasons:
-- Important flows / states / data decisions:
-- Durable feature decisions:
+- Product / users / core outcome: コマンドライン未経験者向けの日本語Webアプリ。安全な疑似ターミナルで、現在地・確認・移動・作成の基本を10〜15分で体験できることを中心成果とする。
+- Current maturity: Stage 1のCore Definition完了。リポジトリと仕様文書のみで、アプリコードは未実装。
+- Core feature set / completion criteria: 1コース・全8ステップ、仮想ファイルシステム、`pwd`・`ls`・`cd`・`mkdir`・`touch`・`cat`・`clear`、日本語フィードバックとヒント、進捗表示、`localStorage`保存、確認付きリセット。8ステップ完走、不正入力時の復帰、再読み込み後の復元、リセット、実OS・ネットワーク非接続を確認してコア完了とする。
+- Next target state: 単一の`index.html`でStage 1のコアを実装し、主要フローと重要状態を実操作で検証できる状態。
+- Expansion Set: Stage 1完了前は設定しない。完成後の独立評価で候補を選定する。
+- Deferred or rejected items / reasons: 実シェル、バックエンド、DB、認証、複数コース、自由練習、ランキング、コマンド補完、パイプ、リダイレクト、決済、広告、Analytics、本番公開は、コア価値の検証に不要なため延期。
+- Important flows / states / data decisions: 初回説明 → ステップ提示 → コマンド入力 → 疑似実行 → 結果と意味の表示 → 進捗更新 → 完了。空入力、未対応コマンド、対象なし、重複作成、保存データ破損、リセット取消・承認を扱う。初期位置は`/home/learner`、初期要素は`welcome.txt`と`projects/`。
+- Durable feature decisions: フロントエンドのみ、実コマンドを実行しない、外部依存なし、単一`index.html`、日本語UI、PC推奨かつスマートフォン操作可能。
