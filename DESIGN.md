@@ -63,8 +63,8 @@
 ## Project Direction
 
 - Product / users / primary task: コマンドライン未経験者が、現在のミッションを読み、疑似ターミナルへ1コマンドずつ入力し、結果を理解して8ステップを完了する。
-- Desired impression: 安全、落ち着き、明快さ。いわゆるハッカー風の威圧感ではなく、学習に集中できる道具として見せる。
-- Reference products / source URLs: Stage 1のコア実装前には固定しない。コア完成後のStage 2独立評価で、実在する学習アプリとターミナル教材を複数調査する。
-- Selected reference dimensions / what to borrow: Stage 1では情報階層、入力欄の見つけやすさ、結果と説明の近さ、キーボード操作、スマートフォンでの再配置を優先する。具体的な参照値はStage 2調査後に記録する。
-- What not to copy / avoid: ネオンやglowを多用したサイバーパンク表現、紫青グラデーション、glass UI、巨大Hero、過剰なカード分割、意味のないbadgeやpill、genericなSaaS風コピー。
-- Durable design decisions: 1画面内に進捗、レッスン、疑似ターミナル、フィードバックを置く。PCを推奨しつつ375px幅でも横スクロールなしで操作可能にする。成功・失敗は色だけで区別せず、入力欄のラベルとフォーカス、支援技術への状態通知を用意する。
+- Desired impression: 紙のフィールドノートと安全な計器盤。冷静、明快、探索的で、いわゆるハッカー風の威圧感を避ける。
+- Reference products / source URLs: CMD Challenge（https://cmdchallenge.com/）、Linux Survival（https://linuxsurvival.com/linux-tutorial-introduction/）、Codecademy Learn the Command Line（https://www.codecademy.com/learn/learn-the-command-line）。取得画面と分析は`design-reference/`に記録。
+- Selected reference dimensions / what to borrow: 課題と入力欄の近さ、説明とシミュレーターの並列、構造を伝える番号と罫線を採用。参考元の販促要素やブランド表現は持ち込まない。
+- What not to copy / avoid: ネオンやglowを多用したサイバーパンク表現、黒一色、紫青グラデーション、glass UI、巨大Hero、過剰なカード分割、長大な常時表示サイドバー、genericなSaaS風コピー。
+- Durable design decisions: Path Railを記憶点とし、現在地の変化を路線図として表示する。冷たい鉱物色、信号オレンジ、経路の青緑を使う。1画面内に進捗、レッスン、疑似ターミナル、フィードバックを置く。375px幅で横スクロールなし、モバイル初期表示は自動フォーカスしない。成功・失敗は色だけで区別せず、ラベル、フォーカス、状態通知、reduced motionへ対応する。PC初期・完了画面と375px幅をVisual QA済み。
