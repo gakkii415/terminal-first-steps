@@ -40,10 +40,10 @@
 
 - Content value / audience / use context: 黒い画面や誤操作に不安がある未経験者が、ブラウザ上で説明を読み、その場で入力し、結果の意味を日本語で理解するための入門教材。
 - Content types / structure / quality bar: 各ステップを「目的 → 短い説明 → 入力 → 結果 → 意味 → 次の行動」で統一する。専門用語は初出で説明し、エラーは原因と次に試す操作を具体的に示す。過剰な励ましや抽象的なコピーを避ける。
-- Current maturity / coverage / depth: コア教材の範囲と順序は確定。実際の画面文言、ヒント、成功・失敗メッセージはコードとともに未実装。
-- Core content set / completion criteria: 8ステップは`pwd` → `ls` → `cat welcome.txt` → `cd projects` → `mkdir practice` → `cd practice` → `touch memo.txt` → `ls`。`welcome.txt`は安全な練習環境であることを伝える。未経験者が補助なしで完走し、現在地・フォルダ・ファイル・コマンドと引数を説明できる内容にする。
-- Next target state: 8ステップ分の説明、ヒント、成功・失敗文言を実装し、主要な誤入力でも次の一手が理解できる状態。
-- Expansion Set: Stage 1完了前は設定しない。完成後に範囲、深さ、難易度、反復学習の不足を評価する。
-- Deferred or rejected areas / reasons: 追加コマンド、複数レッスン、自由練習、上級概念、ランキング向け文言は、最初の学習価値を薄めるため延期。
-- Sources / freshness / maintenance: MVPは一般的なコマンド概念を限定的に模擬する。実シェルとの差異が誤解を生まない表現にし、拡充時は対象シェルの一次資料で挙動を確認する。
+- Current maturity / coverage / depth: コア教材と拡充コンテンツを実装・検証済み。8ステップ、段階式ヒント、コマンドと引数の分解、コマンド手帳、成功・失敗メッセージ、完了時の能力別振り返りが揃っている。
+- Core content set / completion criteria: `pwd` → `ls` → `cat welcome.txt` → `cd projects` → `mkdir practice` → `cd practice` → `touch memo.txt` → `ls`。未経験者が操作と結果を結び付け、現在地・フォルダ・ファイル・コマンド・引数を理解できる内容として完走確認済み。
+- Next target state: 現在の8ステップを正本として維持する。追加教材は、対象ユーザーと学習成果を再定義したうえで別のまとまりとして設計する。
+- Expansion Set: 完了。入力のしくみ、7コマンドの意味と形式、完了時の「場所を知る・中身を確かめる・場所を移る・新しく作る」の振り返りを追加した。
+- Deferred or rejected areas / reasons: 追加コマンド、複数レッスン、自由練習、上級概念、ランキング向け文言は、最初の学習価値を薄めるため保留。
+- Sources / freshness / maintenance: 一般的なコマンド概念を限定的に模擬し、実シェルとの差異が誤解を生まないよう練習環境であることを明示する。拡充時は対象シェルの一次資料で挙動を確認する。
 - Durable content decisions: 日本語、未経験者基準、1画面で読める短さ、入力結果と意味を必ず対にする、実環境ではなく練習用シミュレーターであることを明示する。
