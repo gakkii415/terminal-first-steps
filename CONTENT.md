@@ -38,12 +38,12 @@
 
 ## Project Content Maturity
 
-- Content value / audience / use context:
-- Content types / structure / quality bar:
-- Current maturity / coverage / depth:
-- Core content set / completion criteria:
-- Next target state:
-- Expansion Set:
-- Deferred or rejected areas / reasons:
-- Sources / freshness / maintenance:
-- Durable content decisions:
+- Content value / audience / use context: 黒い画面や誤操作に不安がある未経験者が、ブラウザ上で説明を読み、その場で入力し、結果の意味を日本語で理解するための入門教材。
+- Content types / structure / quality bar: 各ステップを「目的 → 短い説明 → 入力 → 結果 → 意味 → 次の行動」で統一する。専門用語は初出で説明し、エラーは原因と次に試す操作を具体的に示す。過剰な励ましや抽象的なコピーを避ける。
+- Current maturity / coverage / depth: コア教材の範囲と順序は確定。実際の画面文言、ヒント、成功・失敗メッセージはコードとともに未実装。
+- Core content set / completion criteria: 8ステップは`pwd` → `ls` → `cat welcome.txt` → `cd projects` → `mkdir practice` → `cd practice` → `touch memo.txt` → `ls`。`welcome.txt`は安全な練習環境であることを伝える。未経験者が補助なしで完走し、現在地・フォルダ・ファイル・コマンドと引数を説明できる内容にする。
+- Next target state: 8ステップ分の説明、ヒント、成功・失敗文言を実装し、主要な誤入力でも次の一手が理解できる状態。
+- Expansion Set: Stage 1完了前は設定しない。完成後に範囲、深さ、難易度、反復学習の不足を評価する。
+- Deferred or rejected areas / reasons: 追加コマンド、複数レッスン、自由練習、上級概念、ランキング向け文言は、最初の学習価値を薄めるため延期。
+- Sources / freshness / maintenance: MVPは一般的なコマンド概念を限定的に模擬する。実シェルとの差異が誤解を生まない表現にし、拡充時は対象シェルの一次資料で挙動を確認する。
+- Durable content decisions: 日本語、未経験者基準、1画面で読める短さ、入力結果と意味を必ず対にする、実環境ではなく練習用シミュレーターであることを明示する。
