@@ -62,9 +62,9 @@
 
 ## Project Direction
 
-- Product / users / primary task:
-- Desired impression:
-- Reference products / source URLs:
-- Selected reference dimensions / what to borrow:
-- What not to copy / avoid:
-- Durable design decisions:
+- Product / users / primary task: コマンドライン未経験者が、現在のミッションを読み、疑似ターミナルへ1コマンドずつ入力し、結果を理解して8ステップを完了する。
+- Desired impression: 安全、落ち着き、明快さ。いわゆるハッカー風の威圧感ではなく、学習に集中できる道具として見せる。
+- Reference products / source URLs: Stage 1のコア実装前には固定しない。コア完成後のStage 2独立評価で、実在する学習アプリとターミナル教材を複数調査する。
+- Selected reference dimensions / what to borrow: Stage 1では情報階層、入力欄の見つけやすさ、結果と説明の近さ、キーボード操作、スマートフォンでの再配置を優先する。具体的な参照値はStage 2調査後に記録する。
+- What not to copy / avoid: ネオンやglowを多用したサイバーパンク表現、紫青グラデーション、glass UI、巨大Hero、過剰なカード分割、意味のないbadgeやpill、genericなSaaS風コピー。
+- Durable design decisions: 1画面内に進捗、レッスン、疑似ターミナル、フィードバックを置く。PCを推奨しつつ375px幅でも横スクロールなしで操作可能にする。成功・失敗は色だけで区別せず、入力欄のラベルとフォーカス、支援技術への状態通知を用意する。
